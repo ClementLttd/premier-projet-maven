@@ -13,11 +13,33 @@
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mode>DEV</mode>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<mode>PROD</mode>
+			</properties>
+		</profile>
+
+	</profiles>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- TODO : création d’une propriété dont le nom est junit.version et la 
 			valeur 3.8.1 -->
 		<junit.version>3.8.1</junit.version>
+		<!-- Création d’une propriété mode avec la valeur DEV. -->
+		<mode>DEV</mode>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
@@ -41,8 +63,14 @@
 			le modèle objet du projet courant -->
 
 		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
-			
+
 
 			<!-- configuration du plugin shade -->
 			<plugin>
@@ -84,7 +112,7 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.1</version>
 				</plugin>
-				
+
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>2.5.2</version>
@@ -102,21 +130,21 @@
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>3.0.0</version>
 				</plugin>
-				
+
 				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<!-- chemin vers la classe principale du projet. -->
-							<mainClass>dev.App</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<!-- chemin vers la classe principale du projet. -->
+								<mainClass>dev.App</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+
 			</plugins>
 	</pluginManagement>
 	</build>
